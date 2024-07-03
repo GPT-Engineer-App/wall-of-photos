@@ -6,7 +6,9 @@ const photos = [
   { id: 1, src: "/images/photo1.jpg", alt: "Photo 1" },
   { id: 2, src: "/images/photo2.jpg", alt: "Photo 2" },
   { id: 3, src: "/images/photo3.jpg", alt: "Photo 3" },
-  // Add more photos as needed
+  { id: 4, src: "/images/photo4.jpg", alt: "Photo 4" },
+  { id: 5, src: "/images/photo5.jpg", alt: "Photo 5" },
+  { id: 6, src: "/images/photo6.jpg", alt: "Photo 6" },
 ];
 
 const Gallery = () => {
