@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const photos = [
@@ -10,21 +12,34 @@ const photos = [
 ];
 
 const Index = () => {
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
   return (
     <div className="text-center">
       <h1 className="text-3xl font-bold mb-4">Welcome to Photo Wall</h1>
       <p className="text-lg mb-8">A place to share and view beautiful photos.</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {photos.map((photo) => (
-          <Card key={photo.id} className="overflow-hidden">
-            <img src={photo.src} alt={photo.alt} className="w-full h-auto object-cover" />
-            <CardHeader>
-              <CardTitle>{photo.alt}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CardDescription>{photo.description}</CardDescription>
-            </CardContent>
-          </Card>
+          <Dialog key={photo.id} onOpenChange={(isOpen) => !isOpen && setSelectedPhoto(null)}>
+            <DialogTrigger asChild>
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                className="cursor-pointer w-full h-auto object-cover"
+                onClick={() => setSelectedPhoto(photo)}
+              />
+            </DialogTrigger>
+            <DialogContent>
+              {selectedPhoto && selectedPhoto.id === photo.id && (
+                <div className="flex flex-col items-center">
+                  <img src={selectedPhoto.src} alt={selectedPhoto.alt} className="w-full h-auto object-cover mb-4" />
+                  <button onClick={() => setSelectedPhoto(null)} className="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+                    Close
+                  </button>
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
         ))}
       </div>
     </div>
